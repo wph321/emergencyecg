@@ -18,7 +18,6 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".DeviceListActivity"></activity>
     </application>
 
     <uses-permission android:name="android.permission.BLUETOOTH" />
