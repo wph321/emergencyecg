@@ -19,6 +19,7 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -44,6 +45,8 @@ public class MainActivity extends AppCompatActivity {
     private BluetoothSocket socket;
 
     private int REQUEST_ENABLE = 1;
+
+    private String array[] = new String[100];
 
 
     //    搜索蓝牙设备
@@ -197,11 +200,23 @@ public class MainActivity extends AppCompatActivity {
                 int bytes;
                 while(true){
 //      读取数据
+
                     bytes = inputStream.read(buffer);
                     if(bytes > -1){
                         final byte[] data = new byte[bytes];
                         System.arraycopy(buffer,0,data,0,bytes);
-                        Log.e("TAG", "run: "+data);
+//                        Log.e("TAG", "run: "+data);
+
+                        for(int i = 0;i<array.length;i++){
+
+                            String data1 = bytesToHex(data);
+
+//                            int a = Integer.parseInt(data1);
+                            array[i] = data1;
+
+                            Log.e(TAG, "run: "+array[i]);
+                        }
+                        Log.e(TAG, "run: "+"数组打印完毕，下一组为：" );
                     }
                    }
             } catch (IOException e) {
@@ -222,5 +237,19 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+
+
+    private String bytesToHex(final byte[] dataBytes) {
+        char temp;
+        String str = "";
+        for (int n=0; n<dataBytes.length; n++) {
+            temp = (char) ((dataBytes[n] & 0xf0) >> 4);
+            str += (char)(  temp >= 10? 'A'+(temp-10):'0'+temp);
+            temp = (char) ((dataBytes[n] & 0x0f) >> 0);
+            str += (char)( temp >= 10? 'A'+(temp-10):'0'+temp);
+            str +=  ' ';
+        }
+        return str;
+    }
 
 }
