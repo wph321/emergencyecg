@@ -1,6 +1,7 @@
 package com.example.emergencyecg;
 
 
+import android.annotation.SuppressLint;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothServerSocket;
@@ -15,9 +16,14 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
+
+import com.drawheart.CardiographView;
+import com.drawheart.PainView;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -50,7 +56,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     //    搜索蓝牙设备
-
+/**
     private final BroadcastReceiver receiver = new BroadcastReceiver() {
 
         @Override
@@ -81,7 +87,7 @@ public class MainActivity extends AppCompatActivity {
             }
         }
     };
-
+**/
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -158,11 +164,34 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        final Button connectBluetooth = findViewById(R.id.ConnectBLE);
+
+//        点击添加心电图波形view
+
+        connectBluetooth.setOnClickListener(new View.OnClickListener() {
+            @SuppressLint("ResourceAsColor")
+            @Override
+//            回调方法
+            public void onClick(View view) {
+                LinearLayout bigLinearLayout = findViewById(R.id.bigPanel);
+                final PainView painView = new PainView(MainActivity.this);
+                painView.setM("chuanzhi");
+                final CardiographView gd = new CardiographView(MainActivity.this);
+                gd.setMinimumWidth(bigLinearLayout.getWidth());
+                gd.setMinimumHeight(bigLinearLayout.getHeight());
+                Log.e("宽", String.valueOf(bigLinearLayout.getWidth()));
+                Log.e("高", String.valueOf(bigLinearLayout.getHeight()));
+//                重绘view组件
+                view.invalidate();
+                bigLinearLayout.addView(painView);
+            }
+        });
+
     }
 
     public void onDestroy() {
         super.onDestroy();
-        unregisterReceiver(receiver);
+//        unregisterReceiver(receiver);
     }
 
 
