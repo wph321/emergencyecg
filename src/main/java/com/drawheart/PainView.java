@@ -16,6 +16,10 @@ public class PainView extends CardiographView {
 
     private String m = " ";
 
+    private float startX;
+    private float stopX;
+    private float stopY;
+
     private float [][] oldpint = new float[781][4];//创建上一段需要显示的点
     LastHeart lh = new LastHeart();
 

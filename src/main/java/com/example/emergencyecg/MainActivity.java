@@ -11,6 +11,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
+import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -67,7 +70,7 @@ public class MainActivity extends AppCompatActivity {
                 BluetoothDevice device = intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE);
 //                //避免重复添加已经绑定过的设备
                 if (device.getBondState() != BluetoothDevice.BOND_BONDED) {
-////                    //此处的adapter是列表的adapter，不是BluetoothAdapter
+//                  此处的adapter是列表的adapter，不是BluetoothAdapter
                     Log.e("TAG", "onReceive: " + device.getName());
                     List<String> data = new ArrayList<>();
                     data.add(device.getName());
@@ -165,6 +168,8 @@ public class MainActivity extends AppCompatActivity {
 
         final Button connectBluetooth = findViewById(R.id.ConnectBLE);
 
+        final LinearLayout bigLinearLayout = findViewById(R.id.bigPanel);
+
 //        点击添加心电图波形view
 
         connectBluetooth.setOnClickListener(new View.OnClickListener() {
@@ -172,14 +177,13 @@ public class MainActivity extends AppCompatActivity {
             @Override
 //            回调方法
             public void onClick(View view) {
-                LinearLayout bigLinearLayout = findViewById(R.id.bigPanel);
                 final PainView painView = new PainView(MainActivity.this);
                 painView.setM("chuanzhi");
                 final CardiographView gd = new CardiographView(MainActivity.this);
                 gd.setMinimumWidth(bigLinearLayout.getWidth());
                 gd.setMinimumHeight(bigLinearLayout.getHeight());
-                Log.e("宽", String.valueOf(bigLinearLayout.getWidth()));
-                Log.e("高", String.valueOf(bigLinearLayout.getHeight()));
+//                Log.e("宽", String.valueOf(bigLinearLayout.getWidth()));
+//                Log.e("高", String.valueOf(bigLinearLayout.getHeight()));
 //                重绘view组件
                 view.invalidate();
                 bigLinearLayout.addView(painView);
@@ -236,7 +240,7 @@ public class MainActivity extends AppCompatActivity {
                         System.arraycopy(buffer,0,data,0,bytes);
 
                         int c = data.length;
-                        int array2[] = new int[112]; 
+                        final int array2[] = new int[112];
 //                      将字节数组转换为字符串数字并判断正负
                         for(int j=0;j<data.length-1;j++) {
                             array2[j] = data[j];
@@ -244,6 +248,24 @@ public class MainActivity extends AppCompatActivity {
                             if(array2[j]<0){
                                 Log.e(TAG, "run: "+array2[j]+"-------"+(256+array2[j]) );
                             }
+
+                            Looper.prepare();//初始化Looper
+
+                            Handler mesHandler = new Handler(){
+
+                                @Override
+                                public void handleMessage(Message msg) {
+                                    super.handleMessage(msg);
+
+                                    msg.what = 1;
+
+
+
+                                }
+                            };
+
+
+
                         }
                         Log.e(TAG, "run: "+"数组打印完毕，下一组为：" );
                     }
@@ -253,19 +275,6 @@ public class MainActivity extends AppCompatActivity {
             }
         }
     }
-
-//    发送信息线程
-    class sendMsgThread implements Runnable{
-
-
-        @Override
-        public void run() {
-
-
-
-        }
-    }
-
 
 
     private String bytesToHex(final byte[] dataBytes) {
