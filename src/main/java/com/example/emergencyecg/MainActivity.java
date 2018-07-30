@@ -29,7 +29,9 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
 import java.util.UUID;
@@ -51,9 +53,6 @@ public class MainActivity extends AppCompatActivity {
     private BluetoothSocket socket;
 
     private int REQUEST_ENABLE = 1;
-
-    private String array[] = new String[100];
-
 
     //    搜索蓝牙设备
 /**
@@ -225,25 +224,26 @@ public class MainActivity extends AppCompatActivity {
             try {
                 InputStream inputStream = socket.getInputStream();
 //                OutputStream outputStream = socket.getOutputStream();
-                byte[] buffer = new byte[1024];
+                final  byte[] buffer = new byte[112];
                 int bytes;
+
                 while(true){
 //      读取数据
-
                     bytes = inputStream.read(buffer);
                     if(bytes > -1){
-                        final byte[] data = new byte[bytes];
+                        byte[] data = new byte[bytes];
+//                        复制到data数组
                         System.arraycopy(buffer,0,data,0,bytes);
-//                        Log.e("TAG", "run: "+data);
 
-                        for(int i = 0;i<array.length;i++){
-
-                            String data1 = bytesToHex(data);
-
-//                            int a = Integer.parseInt(data1);
-                            array[i] = data1;
-
-                            Log.e(TAG, "run: "+array[i]);
+                        int c = data.length;
+                        int array2[] = new int[112]; 
+//                      将字节数组转换为字符串数字并判断正负
+                        for(int j=0;j<data.length-1;j++) {
+                            array2[j] = data[j];
+//                      判断正负修改数据符号问题
+                            if(array2[j]<0){
+                                Log.e(TAG, "run: "+array2[j]+"-------"+(256+array2[j]) );
+                            }
                         }
                         Log.e(TAG, "run: "+"数组打印完毕，下一组为：" );
                     }
@@ -280,5 +280,8 @@ public class MainActivity extends AppCompatActivity {
         }
         return str;
     }
+
+
+
 
 }
