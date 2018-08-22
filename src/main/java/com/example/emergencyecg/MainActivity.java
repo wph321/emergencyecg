@@ -55,7 +55,25 @@ public class MainActivity extends AppCompatActivity {
 
     private BluetoothSocket socket;
 
+    final int arrayfinal[] = new int[112];
+
+    final int array2[] = new int[112];
+
+    final int arraydata[] = new int[112];
+
+    final int arraydanqian[] = new int[112];
+
+    final int arraydanhou[] = new int[112];
+
+    final int arraydoubleqian[] = new int[112];
+
+    final int arraydoublehou  [] = new int[112];
+
+    final int array1[] = new int[112];
+
     private int REQUEST_ENABLE = 1;
+
+    private int backage_flag = 1;
 
     //    搜索蓝牙设备
 /**
@@ -222,6 +240,8 @@ public class MainActivity extends AppCompatActivity {
 
 
 
+
+
         @Override
         public void run() {
 
@@ -235,40 +255,82 @@ public class MainActivity extends AppCompatActivity {
 //      读取数据
                     bytes = inputStream.read(buffer);
                     if(bytes > -1){
-                        byte[] data = new byte[bytes];
+                        final byte[] data = new byte[112];
+
 //                        复制到data数组
                         System.arraycopy(buffer,0,data,0,bytes);
 
                         int c = data.length;
-                        final int array2[] = new int[112];
 //                      将字节数组转换为字符串数字并判断正负
                         for(int j=0;j<data.length-1;j++) {
                             array2[j] = data[j];
 //                      判断正负修改数据符号问题
                             if(array2[j]<0){
-                                Log.e(TAG, "run: "+array2[j]+"-------"+(256+array2[j]) );
+                                array2[j] = 256+array2[j];
                             }
 
-                            Looper.prepare();//初始化Looper
-
-                            Handler mesHandler = new Handler(){
-
-                                @Override
-                                public void handleMessage(Message msg) {
-                                    super.handleMessage(msg);
-
-                                    msg.what = 1;
-
-
-
-                                }
-                            };
-
-
-
                         }
+
+
+//                      判断标识位（55，F0）
+                        for(int j=0;j<data.length-1;j++) {
+
+
+                            System.arraycopy(array2, 0, arraydata, 0, data.length);
+
+                            if (array2[j] == 85 && array2[j + 1] == 240) {
+
+
+                                if(backage_flag==1) {
+//                              去除第一包开始标志前数据
+                                    System.arraycopy(array2, j, arraydanhou, j, data.length - 1 - j);
+
+                                }else if (backage_flag % 2 != 0) {
+//                              保存单数包标志前后数据
+                                    System.arraycopy(array2, 0, arraydanqian, j, j-1);
+                                    System.arraycopy(array2, j, arraydanhou, 0, data.length - 1 - j);
+//                              整合双数包标志后与单数包标志前的数据
+                                    System.arraycopy(arraydoublehou,0,arraydanqian,0,data.length-1-j);
+
+
+                                    for (int i = 0; i < arraydanqian.length - 1; i++) {
+                                        Log.e(TAG, "单前: " + arraydanqian[i]);
+                                    }
+
+                                    Log.e(TAG, "run: " + "----------------------------------");
+
+                                } else if (backage_flag % 2 == 0) {
+//                              保存双数包标志前后数据
+                                      System.arraycopy(array2, 0, arraydoubleqian, j, j-1);
+                                    System.arraycopy(array2, j, arraydoublehou, 0, data.length - 1 - j);
+//                              整合双数包标志前与单数包标志后的数据
+                                    System.arraycopy(arraydanhou,0,arraydoubleqian,0,data.length-1-j);
+
+
+                                    for (int i = 0; i < arraydoubleqian.length - 1; i++) {
+                                        Log.e(TAG, "双后: " + arraydoubleqian[i]);
+                                    }
+
+                                    Log.e(TAG, "run: " + "----------------------------------");
+                        }
+                            }else {
+                                if (backage_flag % 2 != 0) {
+                                    System.arraycopy(array2, 0, arraydanqian, 0, array2.length);
+                                } else {
+                                    System.arraycopy(array2, 0, arraydoubleqian, 0, array2.length);
+                                }
+                            }
+                        }
+
+
                         Log.e(TAG, "run: "+"数组打印完毕，下一组为：" );
+
+
                     }
+
+                    backage_flag++;
+
+                     
                    }
             } catch (IOException e) {
                 e.printStackTrace();
@@ -289,8 +351,5 @@ public class MainActivity extends AppCompatActivity {
         }
         return str;
     }
-
-
-
 
 }
