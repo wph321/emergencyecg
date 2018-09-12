@@ -29,6 +29,7 @@ import com.drawheart.CardiographView;
 import com.drawheart.PainView;
 
 import java.io.ByteArrayOutputStream;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -74,6 +75,11 @@ public class MainActivity extends AppCompatActivity {
     private int REQUEST_ENABLE = 1;
 
     private int backage_flag = 1;
+
+    private PainView painView = null;
+
+    private Handler handler;
+
 
     //    搜索蓝牙设备
 /**
@@ -127,8 +133,55 @@ public class MainActivity extends AppCompatActivity {
 //      不做提示，直接打开蓝牙
 //            bTAdatper.enable();
         }
-        Button botten = findViewById(R.id.scanButton);
-        botten.setOnClickListener(new View.OnClickListener() {
+
+
+
+
+//        while (true){
+//            if(painView.getFlag()==0) {
+//
+//                    Log.d(TAG, "onClick: " + arraydanqian[2]);
+//
+//                    painView.setPointY(arraydanqian[2]);
+//
+//
+//            }
+//        }
+
+
+//        handler = new Handler() {
+//            @Override
+//            public void handleMessage(Message msg) {
+//                super.handleMessage(msg);
+//
+//                switch (msg.what) {
+//
+//                    case 0:
+//                        if(painView.getFlag()==1) {
+//                            if (backage_flag != 1) {
+//
+//                            } else if (backage_flag % 2 != 0) {
+//
+//                                painView.setPointY(arraydanqian[2]);
+//
+//                                Log.d(TAG, "PointY: " + painView.getPointY());
+//
+//                            } else if (backage_flag % 2 == 0) {
+//                                painView.setPointY(arraydoubleqian[2]);
+//
+//                                Log.d(TAG, "PointY: " + painView.getPointY());
+//
+//
+//                            }
+//                        }
+//
+//                }
+//            }
+//        };
+
+
+        Button batten = findViewById(R.id.scanButton);
+        batten.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 //      判断蓝牙是否打开
@@ -184,6 +237,10 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        final PainView painView = new PainView(MainActivity.this);
+
+
+
         final Button connectBluetooth = findViewById(R.id.ConnectBLE);
 
         final LinearLayout bigLinearLayout = findViewById(R.id.bigPanel);
@@ -194,23 +251,36 @@ public class MainActivity extends AppCompatActivity {
             @SuppressLint("ResourceAsColor")
             @Override
 //            回调方法
-            public void onClick(View view) {
-                final PainView painView = new PainView(MainActivity.this);
-                painView.setM("chuanzhi");
+             public void onClick(View view) {
+
+                    new Handler().postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+
+                            Log.d(TAG, "onCreate: " + arraydanqian[2]);
+                            painView.setPointY(arraydanqian[2]);
+
+                        }
+                    },1000);
+
+
                 final CardiographView gd = new CardiographView(MainActivity.this);
                 gd.setMinimumWidth(bigLinearLayout.getWidth());
                 gd.setMinimumHeight(bigLinearLayout.getHeight());
-//                Log.e("宽", String.valueOf(bigLinearLayout.getWidth()));
-//                Log.e("高", String.valueOf(bigLinearLayout.getHeight()));
-//                重绘view组件
-                view.invalidate();
+//                          Log.e("宽", String.valueOf(bigLinearLayout.getWidth()));
+//                          Log.e("高", String.valueOf(bigLinearLayout.getHeight()));
+//           重绘view组件
+                painView.invalidate();
+
                 bigLinearLayout.addView(painView);
+
             }
         });
 
+
     }
 
-    public void onDestroy() {
+     public void onDestroy() {
         super.onDestroy();
 //        unregisterReceiver(receiver);
     }
@@ -238,11 +308,7 @@ public class MainActivity extends AppCompatActivity {
 
         private BluetoothServerSocket bluetoothServerSocket;
 
-
-
-
-
-        @Override
+         @Override
         public void run() {
 
             try {
@@ -254,88 +320,111 @@ public class MainActivity extends AppCompatActivity {
                 while(true){
 //      读取数据
                     bytes = inputStream.read(buffer);
-                    if(bytes > -1){
+                    if(bytes > -1) {
                         final byte[] data = new byte[112];
 
 //                        复制到data数组
-                        System.arraycopy(buffer,0,data,0,bytes);
+                            System.arraycopy(buffer, 0, data, 0, bytes);
 
-                        int c = data.length;
+                            int c = data.length;
 //                      将字节数组转换为字符串数字并判断正负
-                        for(int j=0;j<data.length-1;j++) {
-                            array2[j] = data[j];
+                            for (int j = 0; j < data.length; j++) {
+                                array2[j] = data[j];
 //                      判断正负修改数据符号问题
-                            if(array2[j]<0){
-                                array2[j] = 256+array2[j];
+                                if (array2[j] < 0) {
+                                    array2[j] = 256 + array2[j];
+                                }
+
                             }
-
-                        }
-
 
 //                      判断标识位（55，F0）
-                        for(int j=0;j<data.length-1;j++) {
+                            for (int j = 0; j < data.length-1; j++) {
 
+                                if (array2[j] == 85 && array2[j + 1] == 240) {
 
-                            System.arraycopy(array2, 0, arraydata, 0, data.length);
-
-                            if (array2[j] == 85 && array2[j + 1] == 240) {
-
-
-                                if(backage_flag==1) {
+                                    if (backage_flag == 1) {
 //                              去除第一包开始标志前数据
-                                    System.arraycopy(array2, j, arraydanhou, j, data.length - 1 - j);
+                                        System.arraycopy(array2, j, arraydanhou, 0, data.length - 1 - j);
 
-                                }else if (backage_flag % 2 != 0) {
+                                    } else if (backage_flag % 2 != 0) {
 //                              保存单数包标志前后数据
-                                    System.arraycopy(array2, 0, arraydanqian, j, j-1);
-                                    System.arraycopy(array2, j, arraydanhou, 0, data.length - 1 - j);
+                                        System.arraycopy(array2, 0, arraydanqian, data.length - j, j);
+                                        System.arraycopy(array2, j, arraydanhou, 0, data.length - 1 - j);
 //                              整合双数包标志后与单数包标志前的数据
-                                    System.arraycopy(arraydoublehou,0,arraydanqian,0,data.length-1-j);
+                                        System.arraycopy(arraydoublehou, 0, arraydanqian, 0, data.length - 1 - j);
+
+//                                        for (int i = 0; i < arraydanqian.length; i++) {
+//                                            Log.e(TAG, "单前: " + arraydanqian[i]);
+//                                        }
+
+//                                        Message message = Message.obtain();
+//
+//                                        message.what = 0;
+//                                        handler.sendMessage(message);
+//                                        Log.d(TAG, "onClick: " + arraydanqian[2]);
 
 
-                                    for (int i = 0; i < arraydanqian.length - 1; i++) {
-                                        Log.e(TAG, "单前: " + arraydanqian[i]);
-                                    }
 
-                                    Log.e(TAG, "run: " + "----------------------------------");
-
-                                } else if (backage_flag % 2 == 0) {
+                                    } else if (backage_flag % 2 == 0) {
 //                              保存双数包标志前后数据
-                                      System.arraycopy(array2, 0, arraydoubleqian, j, j-1);
-                                    System.arraycopy(array2, j, arraydoublehou, 0, data.length - 1 - j);
+                                        System.arraycopy(array2, 0, arraydoubleqian, data.length - j, j);
+                                        System.arraycopy(array2, j, arraydoublehou, 0, data.length - 1 - j);
 //                              整合双数包标志前与单数包标志后的数据
-                                    System.arraycopy(arraydanhou,0,arraydoubleqian,0,data.length-1-j);
+                                        System.arraycopy(arraydanhou, 0, arraydoubleqian, 0, data.length - 1 - j);
 
+//                                        for (int i = 0; i < arraydoubleqian.length; i++) {
+//                                            Log.e(TAG, "双后: " + arraydoubleqian[i]);
+//                                         }
 
-                                    for (int i = 0; i < arraydoubleqian.length - 1; i++) {
-                                        Log.e(TAG, "双后: " + arraydoubleqian[i]);
+//                                        Message message = Message.obtain();
+//
+//                                        message.what = 0;
+//                                        handler.sendMessage(message);
+//                                        Log.d(TAG, "onClick: " + arraydoubleqian[2]);
+
+//                                        painView.setPointY(arraydoubleqian[2]);
+//                                        Log.e(TAG, "run: " + "----------------------------------");
                                     }
-
-                                    Log.e(TAG, "run: " + "----------------------------------");
-                        }
-                            }else {
-                                if (backage_flag % 2 != 0) {
-                                    System.arraycopy(array2, 0, arraydanqian, 0, array2.length);
                                 } else {
-                                    System.arraycopy(array2, 0, arraydoubleqian, 0, array2.length);
+                                    if (backage_flag % 2 != 0) {
+                                        System.arraycopy(array2, 0, arraydanqian, 0, array2.length);
+                                    } else {
+
+                                        System.arraycopy(array2, 0, arraydoubleqian, 0, array2.length);
+                                    }
                                 }
                             }
-                        }
 
-
-                        Log.e(TAG, "run: "+"数组打印完毕，下一组为：" );
-
+//                            Log.e(TAG, "run: " + "数组打印完毕，下一组为：");
 
                     }
+                        backage_flag++;
 
-                    backage_flag++;
-
-                     
                    }
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
+    }
+
+    public void writeFile(int arrayx[]){
+
+        String fileName="C:\\kuka.txt";
+                        try
+                       {
+                                    //使用这个构造函数时，如果存在kuka.txt文件，
+                                   //则先把这个文件给删除掉，然后创建新的kuka.txt
+                                    FileWriter writer=new FileWriter(fileName);
+                           for (int i = 0; i < arraydanqian.length; i++) {
+                                  writer.write(arraydanqian[i]);
+                            }
+                               writer.close();
+                           } catch (IOException e)
+                      {
+                                 e.printStackTrace();
+                        }
+
+
     }
 
 

@@ -6,6 +6,11 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.os.Handler;
 import android.util.AttributeSet;
+import android.util.Log;
+
+import com.example.emergencyecg.MainActivity;
+
+import static android.content.ContentValues.TAG;
 
 /**
  * Created by wph on 2018/3/7  pm  15:00.
@@ -28,13 +33,33 @@ public class PainView extends CardiographView {
     private int startx, starty, stopx, stopy;//线坐标
     private int n = 0;
 
+    private int pointY=3; //心电坐标Y值（测试）
 
     public String getM() {
         return m;
     }
 
+    public int flag = 0;
+
+    public int getFlag() {
+        return flag;
+    }
+
+    public void setFlag(int flag) {
+        this.flag = flag;
+    }
+
     public void setM(String m) {
         this.m = m;
+    }
+
+    public int getPointY() {
+        return pointY;
+    }
+
+    public void setPointY(int pointY) {
+        this.pointY = pointY;
+
     }
 
     public PainView(Context context) {
@@ -45,9 +70,14 @@ public class PainView extends CardiographView {
         super(context, attrs, defStyleAttr);
     }
 
+
+
     public void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-         p = new Paint();
+
+
+
+        p = new Paint();
         p.setColor(Color.GREEN);//画笔设置绿色
         p.setStyle(Paint.Style.FILL);
         p.setColor(Color.parseColor("#1FF421"));
@@ -71,24 +101,31 @@ public class PainView extends CardiographView {
                 j = 0;
                 i = 0;
             }
-
-            if(i==oldpint.length-3){
-
-                i = 0;
-
-            }
-
-            //保存上次绘图坐标
-            oldpint [i][0] = j;
-            oldpint [i][1] = x+50;
-            oldpint [i][2] = j+1;
-            oldpint [i][3] = y+50;
+//
+//            if(i==oldpint.length-3){
+//
+//                i = 0;
+//
+//            }
+//
+//            //保存上次绘图坐标
+//            oldpint [i][0] = j;
+//            oldpint [i][1] = x+50;
+//            oldpint [i][2] = j+1;
+//            oldpint [i][3] = y+50;
 
 
 
 
             canvas.drawRect(i , 0, i +10, getHeight(), mPaint);//绘制刷新黑框
-            canvas.drawLine(j, x + 50, j + 1, y + 50, p);//绘制波形
+            canvas.drawLine(j, pointY + 400, j + 1, pointY + 400, p);//绘制波形
+
+
+            flag=1;
+
+            Log.e(TAG, "onDraw: "+getPointY() );
+
+
             }
         }
 
