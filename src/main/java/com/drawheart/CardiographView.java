@@ -5,6 +5,7 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.Path;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
 import android.view.View;
@@ -40,6 +41,8 @@ protected  int mWidth,mHeight;
 //    网格高度
 protected float mGridHeight;
 
+protected Path mPath;
+
 
 
 
@@ -54,6 +57,7 @@ public CardiographView(Context context){
 public CardiographView(Context context, AttributeSet attrs){
     super(context, attrs,0);
     mPaint = new Paint();
+    mPath = new Path();
     DisplayMetrics dm = new DisplayMetrics();
     dm = this.getResources().getDisplayMetrics();
     int dpi = dm.densityDpi;
