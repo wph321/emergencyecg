@@ -271,7 +271,7 @@ public class MainActivity extends AppCompatActivity {
             }
         }
     }
-    
+
     private String bytesToHex(final byte[] dataBytes) {
         char temp;
         String str = "";
