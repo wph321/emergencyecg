@@ -227,9 +227,9 @@ public class MainActivity extends AppCompatActivity {
 
                                         datas.add(arraydanqian[2]);
                                         flag = true;
-                                        WriteFile2.initData(array2);
+//                                        WriteFile2.initData(array2);
 
-                                        WriteFileArray.initData(arraydanqian);
+//                                        WriteFileArray.initData(arraydanqian);
 
                                     } else if (backage_flag % 2 == 0) {
 //                              保存双数包标志前后数据
@@ -244,10 +244,10 @@ public class MainActivity extends AppCompatActivity {
 
                                         datas.add(arraydoubleqian[2]);
                                         flag = true;
-                                        WriteFile2.initData(array2);
+//                                        WriteFile2.initData(array2);
 
 //                                        WriteFile2.initData(arraydanqian[2]);
-                                        WriteFileArray.initData(arraydoubleqian);
+//                                        WriteFileArray.initData(arraydoubleqian);
 
                                     }
                                 } else {
@@ -271,36 +271,7 @@ public class MainActivity extends AppCompatActivity {
             }
         }
     }
-
-
-    public void writeFile(int arraywrite[]){
-
-        File file = new File("/log.txt");
-
-        if (file.exists()==false) {
-            try {
-                File tempFile=null;
-                tempFile = tempFile.createTempFile("users", "properties");
-                byte[] buffer = new byte[112];
-                FileOutputStream writeFile = new  FileOutputStream(tempFile);
-                InputStream inStream = getResources().getAssets().open("log.txt");
-                int length = inStream.read(buffer);
-                writeFile.write(buffer, 0, length);
-                writeFile.flush();
-                inStream.close();
-                writeFile.close();
-                file = tempFile;
-
-
-
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-    }
-
-
-
+    
     private String bytesToHex(final byte[] dataBytes) {
         char temp;
         String str = "";

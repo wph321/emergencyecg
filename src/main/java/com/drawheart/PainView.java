@@ -109,7 +109,7 @@ public class PainView extends CardiographView {
             if(MainActivity.flag = true) {
                 canvas.drawLine(oldpint[j][0], oldpint[j][1], oldpint[j][2], oldpint[j][3], p);//绘制波形
 
-                WriteFile.initData(MainActivity.datas);
+//                WriteFile.initData(MainActivity.datas);
 
             }
 
