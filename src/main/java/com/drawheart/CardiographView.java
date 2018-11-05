@@ -20,30 +20,33 @@ import android.view.View;
 
 public class CardiographView extends View {
 
-    //画笔
+//画笔
 protected Paint mPaint;
+
 //折线颜色
 //protected int mLineColor = Color.parseColor("#76f112");
 protected int mLineColor = Color.parseColor("#000000");
+
 //网格颜色
 //    protected int mBackColor = Color.parseColor(#F9CCE2);
-    protected int mGridColor = Color.parseColor("#ff0000");
-//    小网格颜色
+protected int mGridColor = Color.parseColor("#ff0000");
+
+//小网格颜色
 protected int mSGridColor =  Color.parseColor("#ffb4b4");
 
 //背景颜色
-    protected  int mBackgroundColor = Color.BLACK;
+protected  int mBackgroundColor = Color.BLACK;
 
-//    自身大小
+//自身大小
 protected  int mWidth,mHeight;
+
 //网格宽度
-    protected float mGridWidth;
-//    网格高度
+protected float mGridWidth;
+
+//网格高度
 protected float mGridHeight;
 
 protected Path mPath;
-
-
 
 
 public CardiographView(Context context){

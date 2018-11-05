@@ -1,24 +1,27 @@
 package com.example.emergencyecg;
 
+import android.nfc.Tag;
 import android.util.Log;
 
 import java.io.File;
+import java.io.OutputStream;
 import java.io.RandomAccessFile;
+import java.util.List;
 
 import static android.content.ContentValues.TAG;
 
 /**
- * Created by wei on 2018/10/26.
+ * Created by wei on 2018/10/25.
  */
 
-public class WriteFile2 {
+public class WriteFile {
 
-    public static void initData(float[] a) {
-        String filePath = "/sdcard/Test2/";
-        String fileName = "原始接收数据.txt";
-        if(a.length>0) {
-            for (int i = 0; i < a.length; i++) {
-                writeTxtToFile(String.valueOf(a[i]), filePath, fileName);
+    public static void initData(List a) {
+        String filePath = "/sdcard/Test1/";
+        String fileName = "画波数据.txt";
+        if(a.size()>0) {
+            for (int i = 0; i < a.size(); i++) {
+                writeTxtToFile(a.get(i).toString(), filePath, fileName);
             }
         }
     }
@@ -27,6 +30,7 @@ public class WriteFile2 {
     public static void writeTxtToFile(String strcontent, String filePath, String fileName) {
         //生成文件夹之后，再生成文件，不然会出错
         makeFilePath(filePath, fileName);
+
         String strFilePath = filePath+fileName;
         // 每次写入时，都换行写
         String strContent = strcontent + "\r\n";
@@ -74,6 +78,5 @@ public class WriteFile2 {
             Log.e("error:", e+"--生成文件夹时发生错误");
         }
     }
-
 
 }

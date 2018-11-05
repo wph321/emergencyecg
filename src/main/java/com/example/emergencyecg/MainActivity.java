@@ -22,6 +22,8 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 import java.util.UUID;
 
@@ -39,17 +41,23 @@ public class MainActivity extends AppCompatActivity {
 
     private String TAG = "MainActivity";
 
+    public static List<Float> datas = new ArrayList();
+
+    public static boolean flag = true;
+
+    public static boolean size_change = true;
+
     private BluetoothSocket socket;
 
-    public static float[] array2 = new float[1024];
+    public static float[] array2 = new float[112];
 
-    public static float arraydanqian[] = new float[1024];
+    public static float arraydanqian[] = new float[112];
 
-    public static float arraydanhou[] = new float[1024];
+    public static float arraydanhou[] = new float[112];
 
-    public static float arraydoubleqian[] = new float[1024];
+    public static float arraydoubleqian[] = new float[112];
 
-    public static float arraydoublehou  [] = new float[1024];
+    public static float arraydoublehou  [] = new float[112];
 
     private int REQUEST_ENABLE = 1;
 
@@ -174,18 +182,17 @@ public class MainActivity extends AppCompatActivity {
             try {
                 InputStream inputStream = socket.getInputStream();
 //                OutputStream outputStream = socket.getOutputStream();
-                final  byte[] buffer = new byte[1024];
+                final  byte[] buffer = new byte[112];
                 int bytes;
 
                 while(true){
 //      读取数据
                     bytes = inputStream.read(buffer);
                     if(bytes > -1) {
-                        final byte[] data = new byte[1024];
+                        final byte[] data = new byte[112];
 
 //                        复制到data数组
                             System.arraycopy(buffer, 0, data, 0, bytes);
-                            WriteFile2.initData(data);
 
                             int c = data.length;
 //                      将字节数组转换为字符串数字并判断正负
@@ -220,11 +227,9 @@ public class MainActivity extends AppCompatActivity {
 
                                         datas.add(arraydanqian[2]);
                                         flag = true;
-
 //                                        WriteFile2.initData(array2);
-//                                        Log.d(TAG, "单前: " + arraydanqian[2]);
 
-
+//                                        WriteFileArray.initData(arraydanqian);
 
                                     } else if (backage_flag % 2 == 0) {
 //                              保存双数包标志前后数据
@@ -238,13 +243,11 @@ public class MainActivity extends AppCompatActivity {
 //                                         }
 
                                         datas.add(arraydoubleqian[2]);
-
+                                        flag = true;
 //                                        WriteFile2.initData(array2);
 
-
 //                                        WriteFile2.initData(arraydanqian[2]);
-                                        WriteFileArray.initData(arraydoubleqian);
-//                                            Log.e(TAG, "双后: " + arraydoubleqian[2]);
+//                                        WriteFileArray.initData(arraydoubleqian);
 
                                     }
                                 } else {
@@ -268,35 +271,6 @@ public class MainActivity extends AppCompatActivity {
             }
         }
     }
-
-
-    public void writeFile(int arraywrite[]){
-
-        File file = new File("/log.txt");
-
-        if (file.exists()==false) {
-            try {
-                File tempFile=null;
-                tempFile = tempFile.createTempFile("users", "properties");
-                byte[] buffer = new byte[1024];
-                FileOutputStream writeFile = new  FileOutputStream(tempFile);
-                InputStream inStream = getResources().getAssets().open("log.txt");
-                int length = inStream.read(buffer);
-                writeFile.write(buffer, 0, length);
-                writeFile.flush();
-                inStream.close();
-                writeFile.close();
-                file = tempFile;
-
-
-
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-    }
-
-
 
     private String bytesToHex(final byte[] dataBytes) {
         char temp;
