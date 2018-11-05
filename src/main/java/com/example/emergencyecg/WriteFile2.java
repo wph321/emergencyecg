@@ -4,6 +4,7 @@ import android.util.Log;
 
 import java.io.File;
 import java.io.RandomAccessFile;
+import java.util.Arrays;
 
 import static android.content.ContentValues.TAG;
 
@@ -13,12 +14,12 @@ import static android.content.ContentValues.TAG;
 
 public class WriteFile2 {
 
-    public static void initData(float[] a) {
+    public static void initData(byte[] a) {
         String filePath = "/sdcard/Test2/";
         String fileName = "原始接收数据.txt";
         if(a.length>0) {
             for (int i = 0; i < a.length; i++) {
-                writeTxtToFile(String.valueOf(a[i]), filePath, fileName);
+                writeTxtToFile(Arrays.toString(a), filePath, fileName);
             }
         }
     }
