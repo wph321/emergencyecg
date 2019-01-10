@@ -64,11 +64,9 @@ public CardiographView(Context context, AttributeSet attrs){
     DisplayMetrics dm = new DisplayMetrics();
     dm = this.getResources().getDisplayMetrics();
     int dpi = dm.densityDpi;
-//    Log.i("vvv","----dpi-"+dpi+"+++"+dm.widthPixels+"*"+dm.heightPixels);
+//    Log.i("vvv  ","----dpi-"+dpi+"+++"+dm.widthPixels+"*"+dm.heightPixels);
 //    网格的宽度  dpi  /25.4 = 1mm   在不同的安卓手机会有误差
     mGridWidth = (float) ((dpi / 25.4)*5);
-
-
 
 //    网格高度
     mGridHeight = mGridWidth;
@@ -81,7 +79,6 @@ protected void onSizeChanged(int w,int h,int oldw,int oldh){
     mWidth = w;
     mHeight = h;
     super.onSizeChanged(w,h,oldw,oldh);
-
 
 }
 
@@ -135,11 +132,6 @@ for(int j = 0; j<hNum+1; j++){
         canvas.drawLine(mGridHeight/5,j*mGridHeight+mGridHeight/5,mGridWidth/5*(snum+1),j*mGridHeight+mGridHeight/5,mPaint);
 }
 
-
-
 }
-
-
-
 
 }
