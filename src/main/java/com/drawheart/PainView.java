@@ -4,9 +4,20 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+<<<<<<< HEAD
 import android.os.Handler;
+=======
+import android.graphics.Path;
+import android.os.Handler;
+import android.util.ArrayMap;
+>>>>>>> parent of c93d6c9... 实现绘制
 import android.util.AttributeSet;
 import com.example.emergencyecg.MainActivity;
+<<<<<<< HEAD
+=======
+
+import java.util.Map;
+>>>>>>> parent of c93d6c9... 实现绘制
 
 
 /**
@@ -16,7 +27,10 @@ import com.example.emergencyecg.MainActivity;
 
 public class PainView extends CardiographView {
 
+<<<<<<< HEAD
     int index = 0;
+=======
+>>>>>>> parent of c93d6c9... 实现绘制
     private float [][] oldpint = new float[3000][4];//创建上一段需要显示的点
 
     private Paint p;//创建画笔
@@ -54,6 +68,7 @@ public class PainView extends CardiographView {
             canvas.drawLine(oldpint[d][0],oldpint[d][1],oldpint[d][2],oldpint[d][3],p);
         }
 
+<<<<<<< HEAD
             mHandler.postDelayed(r, 10);//定时器
 
         mHandler.postDelayed(r, 4);//定时器
@@ -67,6 +82,17 @@ public class PainView extends CardiographView {
                 i = 0;
 //                MainActivity.datas.clear();
 //                index=0;
+=======
+        mHandler.postDelayed(r, 4);//定时器
+
+
+
+        for(int j = 0;j<i;j+=10) {
+
+            if (j == getWidth()) {
+                j = 0;
+                i = 0;
+>>>>>>> parent of c93d6c9... 实现绘制
             }
 
 
