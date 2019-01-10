@@ -9,6 +9,7 @@ import android.graphics.Paint;
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 import android.os.Handler;
 =======
 import android.graphics.Path;
@@ -20,6 +21,11 @@ import android.graphics.Path;
 import android.os.Handler;
 import android.util.ArrayMap;
 >>>>>>> parent of c93d6c9... 实现绘制
+=======
+import android.graphics.Rect;
+import android.os.Handler;
+import android.os.Parcelable;
+>>>>>>> parent of 427465b... 更改数据传输格式
 =======
 import android.graphics.Rect;
 import android.os.Handler;
@@ -61,6 +67,7 @@ public class PainView extends CardiographView {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
     int index = 0;
 =======
 >>>>>>> parent of c93d6c9... 实现绘制
@@ -73,6 +80,10 @@ public class PainView extends CardiographView {
 >>>>>>> parent of 427465b... 更改数据传输格式
     int a = this.getWidth();
     int index = 0;
+=======
+    int a = this.getWidth();
+    int index = 0;
+>>>>>>> parent of 427465b... 更改数据传输格式
 =======
     int a = this.getWidth();
     int index = 0;
@@ -120,10 +131,13 @@ public class PainView extends CardiographView {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
             mHandler.postDelayed(r, 10);//定时器
 
         mHandler.postDelayed(r, 4);//定时器
 =======
+=======
+>>>>>>> parent of 427465b... 更改数据传输格式
 =======
 >>>>>>> parent of 427465b... 更改数据传输格式
 =======
@@ -134,6 +148,9 @@ public class PainView extends CardiographView {
         }
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+>>>>>>> parent of 427465b... 更改数据传输格式
+=======
 >>>>>>> parent of 427465b... 更改数据传输格式
 =======
 >>>>>>> parent of 427465b... 更改数据传输格式
@@ -150,6 +167,7 @@ public class PainView extends CardiographView {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 //                MainActivity.datas.clear();
 //                index=0;
 =======
@@ -157,6 +175,8 @@ public class PainView extends CardiographView {
 
 
 =======
+=======
+>>>>>>> parent of 427465b... 更改数据传输格式
 =======
 >>>>>>> parent of 427465b... 更改数据传输格式
 =======
@@ -206,11 +226,15 @@ public class PainView extends CardiographView {
             oldpint[j][0] = j + 10;
 
 <<<<<<< HEAD
+<<<<<<< HEAD
             //保存上次绘图坐标
             oldpint[j][1] = MainActivity.arraydanhou[2] + 300;
             oldpint[j][3] = MainActivity.arraydanhou[2] + 300;
             oldpint[j][2] = j;
             oldpint[j][0] = j + 10;
+=======
+//                WriteFile.initData(MainActivity.datas);
+>>>>>>> parent of 427465b... 更改数据传输格式
 
 
             canvas.drawRect(i, 0, i + 10, getHeight(), mPaint);//绘制刷新黑框
