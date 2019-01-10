@@ -24,10 +24,13 @@ import java.io.IOException;
 import java.io.InputStream;
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
+=======
+>>>>>>> parent of c93d6c9... 实现绘制
 =======
 >>>>>>> parent of c93d6c9... 实现绘制
 import java.util.Set;
@@ -48,6 +51,7 @@ public class MainActivity extends AppCompatActivity {
     private String TAG = "MainActivity";
 
 <<<<<<< HEAD
+<<<<<<< HEAD
     public static List<Float> datas = new ArrayList();
 
     public static List<Integer> datats = new ArrayList();
@@ -56,6 +60,8 @@ public class MainActivity extends AppCompatActivity {
 
     public static boolean size_change = true;
 
+=======
+>>>>>>> parent of c93d6c9... 实现绘制
 =======
 >>>>>>> parent of c93d6c9... 实现绘制
     private BluetoothSocket socket;
@@ -205,7 +211,10 @@ public class MainActivity extends AppCompatActivity {
                 InputStream inputStream = socket.getInputStream();
 //                OutputStream outputStream = socket.getOutputStream();
 <<<<<<< HEAD
+<<<<<<< HEAD
                 final byte[] buffer = new byte[112];
+=======
+>>>>>>> parent of c93d6c9... 实现绘制
 =======
 >>>>>>> parent of c93d6c9... 实现绘制
                 final  byte[] buffer = new byte[1024];
@@ -215,8 +224,11 @@ public class MainActivity extends AppCompatActivity {
 //      读取数据
                     bytes = inputStream.read(buffer);
 <<<<<<< HEAD
+<<<<<<< HEAD
                     if (bytes > -1) {
                         final byte[] data = new byte[112];
+=======
+>>>>>>> parent of c93d6c9... 实现绘制
 =======
 >>>>>>> parent of c93d6c9... 实现绘制
                     if(bytes > -1) {

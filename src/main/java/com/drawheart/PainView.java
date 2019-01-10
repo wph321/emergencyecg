@@ -5,7 +5,13 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 <<<<<<< HEAD
+<<<<<<< HEAD
 import android.os.Handler;
+=======
+import android.graphics.Path;
+import android.os.Handler;
+import android.util.ArrayMap;
+>>>>>>> parent of c93d6c9... 实现绘制
 =======
 import android.graphics.Path;
 import android.os.Handler;
@@ -14,6 +20,11 @@ import android.util.ArrayMap;
 import android.util.AttributeSet;
 import com.example.emergencyecg.MainActivity;
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+
+import java.util.Map;
+>>>>>>> parent of c93d6c9... 实现绘制
 =======
 
 import java.util.Map;
@@ -28,7 +39,10 @@ import java.util.Map;
 public class PainView extends CardiographView {
 
 <<<<<<< HEAD
+<<<<<<< HEAD
     int index = 0;
+=======
+>>>>>>> parent of c93d6c9... 实现绘制
 =======
 >>>>>>> parent of c93d6c9... 实现绘制
     private float [][] oldpint = new float[3000][4];//创建上一段需要显示的点
@@ -69,6 +83,7 @@ public class PainView extends CardiographView {
         }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
             mHandler.postDelayed(r, 10);//定时器
 
         mHandler.postDelayed(r, 4);//定时器
@@ -94,8 +109,27 @@ public class PainView extends CardiographView {
                 i = 0;
 >>>>>>> parent of c93d6c9... 实现绘制
             }
+=======
+        mHandler.postDelayed(r, 4);//定时器
 
 
+
+        for(int j = 0;j<i;j+=10) {
+
+            if (j == getWidth()) {
+                j = 0;
+                i = 0;
+            }
+
+>>>>>>> parent of c93d6c9... 实现绘制
+
+            //保存上次绘图坐标
+            oldpint[j][1] = MainActivity.arraydanhou[2] + 300;
+            oldpint[j][3] = MainActivity.arraydanhou[2] + 300;
+            oldpint[j][2] = j;
+            oldpint[j][0] = j + 10;
+
+<<<<<<< HEAD
             //保存上次绘图坐标
             oldpint[j][1] = MainActivity.arraydanhou[2] + 300;
             oldpint[j][3] = MainActivity.arraydanhou[2] + 300;
@@ -106,6 +140,12 @@ public class PainView extends CardiographView {
             canvas.drawRect(i, 0, i + 10, getHeight(), mPaint);//绘制刷新黑框
             canvas.drawLine(j, oldpint[j][1], j+10, oldpint[j][3], p);//绘制波形
 
+=======
+
+            canvas.drawRect(i, 0, i + 10, getHeight(), mPaint);//绘制刷新黑框
+            canvas.drawLine(j, oldpint[j][1], j+10, oldpint[j][3], p);//绘制波形
+
+>>>>>>> parent of c93d6c9... 实现绘制
 //            Log.d(TAG, "stax:" + (j - 1) + "   " + "stay:" + oldpint[j][1] + "   " + "stox:" + j + "   " + "stoy:" + oldpint[j][3]);
 
 
