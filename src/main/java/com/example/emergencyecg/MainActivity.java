@@ -6,10 +6,8 @@ import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothServerSocket;
 import android.bluetooth.BluetoothSocket;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -19,12 +17,9 @@ import com.drawheart.CardiographView;
 import com.drawheart.PainView;
 
 import java.io.BufferedReader;
-import java.io.DataInputStream;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileOutputStream;
 
-import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
 
@@ -59,15 +54,15 @@ public class MainActivity extends AppCompatActivity {
 
     private BluetoothSocket socket;
 
-    public static float[] array2 = new float[112];
+    public static float[] array2 = new float[1024];
 
-    public static float arraydanqian[] = new float[112];
+    public static float arraydanqian[] = new float[1024];
 
-    public static float arraydanhou[] = new float[112];
+    public static float arraydanhou[] = new float[1024];
 
-    public static float arraydoubleqian[] = new float[112];
+    public static float arraydoubleqian[] = new float[1024];
 
-    public static float arraydoublehou[] = new float[112];
+    public static float arraydoublehou  [] = new float[1024];
 
     private int REQUEST_ENABLE = 1;
 
@@ -204,6 +199,7 @@ public class MainActivity extends AppCompatActivity {
                 InputStream inputStream = socket.getInputStream();
 //                OutputStream outputStream = socket.getOutputStream();
                 final byte[] buffer = new byte[112];
+                final  byte[] buffer = new byte[1024];
                 int bytes;
 
                 while (true) {
@@ -211,6 +207,8 @@ public class MainActivity extends AppCompatActivity {
                     bytes = inputStream.read(buffer);
                     if (bytes > -1) {
                         final byte[] data = new byte[112];
+                    if(bytes > -1) {
+                        final byte[] data = new byte[1024];
 
 //                        打印数据确定是否为byte
 //                        复制到data数组
@@ -278,6 +276,66 @@ public class MainActivity extends AppCompatActivity {
 //                                }
 //                            }
 //                        }
+                            System.arraycopy(buffer, 0, data, 0, bytes);
+
+                            int c = data.length;
+//                      将字节数组转换为字符串数字并判断正负
+                            for (int j = 0; j < data.length; j++) {
+                                array2[j] = data[j];
+//                      判断正负修改数据符号问题
+                                if (array2[j] < 0) {
+                                    array2[j] = 256 + array2[j];
+                                }
+
+                            }
+
+//                      判断标识位（55，F0）
+                            for (int j = 0; j < data.length-1; j++) {
+
+                                if (array2[j] == 85 && array2[j + 1] == 240) {
+
+                                    if (backage_flag == 1) {
+//                              去除第一包开始标志前数据
+                                        System.arraycopy(array2, j, arraydanhou, 0, data.length - 1 - j);
+
+                                    } else if (backage_flag % 2 != 0) {
+//                              保存单数包标志前后数据
+                                        System.arraycopy(array2, 0, arraydanqian, data.length - j, j);
+                                        System.arraycopy(array2, j, arraydanhou, 0, data.length - 1 - j);
+//                              整合双数包标志后与单数包标志前的数据
+                                        System.arraycopy(arraydoublehou, 0, arraydanqian, 0, data.length - 1 - j);
+
+//                                        for (int i = 0; i < arraydanqian.length; i++) {
+//                                            Log.e(TAG, "单前: " + arraydanqian[i]);
+//                                        }
+
+//                                        Log.d(TAG, "单前: " + arraydanqian[2]);
+
+
+
+                                    } else if (backage_flag % 2 == 0) {
+//                              保存双数包标志前后数据
+                                        System.arraycopy(array2, 0, arraydoubleqian, data.length - j, j);
+                                        System.arraycopy(array2, j, arraydoublehou, 0, data.length - 1 - j);
+//                              整合双数包标志前与单数包标志后的数据
+                                        System.arraycopy(arraydanhou,   0, arraydoubleqian, 0, data.length - 1 - j);
+
+//                                        for (int i = 0;  i < arraydoubleqian.length; i++) {
+//                                            Log.e(TAG, "双后: " + arraydoubleqian[i]);
+//                                         }
+
+//                                            Log.e(TAG, "双后: " + arraydoubleqian[2]);
+
+                                    }
+                                } else {
+                                    if (backage_flag % 2 != 0) {
+                                        System.arraycopy(array2, 0, arraydanqian, 0, array2.length);
+                                    } else {
+
+                                        System.arraycopy(array2, 0, arraydoubleqian, 0, array2.length);
+                                    }
+                                }
+                            }
 
 //                            Log.e(TAG, "run: " + "数组打印完毕，下一组为：");
 
@@ -311,6 +369,27 @@ public class MainActivity extends AppCompatActivity {
 
         for(int i = 0;i<datam.length;i++)
 
+        if (file.exists()==false) {
+            try {
+                File tempFile=null;
+                tempFile = tempFile.createTempFile("users", "properties");
+                byte[] buffer = new byte[1024];
+                FileOutputStream writeFile = new  FileOutputStream(tempFile);
+                InputStream inStream = getResources().getAssets().open("log.txt");
+                int length = inStream.read(buffer);
+                writeFile.write(buffer, 0, length);
+                writeFile.flush();
+                inStream.close();
+                writeFile.close();
+                file = tempFile;
+
+
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
 
 
         result=datam[1]<<8 | datam[0];
