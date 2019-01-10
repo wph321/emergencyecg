@@ -7,6 +7,7 @@ import android.graphics.Paint;
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 import android.os.Handler;
 =======
 import android.graphics.Path;
@@ -18,6 +19,11 @@ import android.graphics.Path;
 import android.os.Handler;
 import android.util.ArrayMap;
 >>>>>>> parent of c93d6c9... 实现绘制
+=======
+import android.graphics.Rect;
+import android.os.Handler;
+import android.os.Parcelable;
+>>>>>>> parent of 427465b... 更改数据传输格式
 =======
 import android.graphics.Rect;
 import android.os.Handler;
@@ -47,6 +53,7 @@ public class PainView extends CardiographView {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
     int index = 0;
 =======
 >>>>>>> parent of c93d6c9... 实现绘制
@@ -55,6 +62,8 @@ public class PainView extends CardiographView {
     private float [][] oldpint = new float[3000][4];//创建上一段需要显示的点
 
 =======
+=======
+>>>>>>> parent of 427465b... 更改数据传输格式
     int a = this.getWidth();
     int index = 0;
     int size = 0;
@@ -98,14 +107,20 @@ public class PainView extends CardiographView {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
             mHandler.postDelayed(r, 10);//定时器
 
         mHandler.postDelayed(r, 4);//定时器
 =======
+=======
+>>>>>>> parent of 427465b... 更改数据传输格式
         if(MainActivity.flag = true) {
 //            i+=10;
             mHandler.postDelayed(r, 1);//定时器
         }
+<<<<<<< HEAD
+>>>>>>> parent of 427465b... 更改数据传输格式
+=======
 >>>>>>> parent of 427465b... 更改数据传输格式
 
 
@@ -116,6 +131,7 @@ public class PainView extends CardiographView {
                 j = 0;
                 i = 0;
 <<<<<<< HEAD
+<<<<<<< HEAD
 //                MainActivity.datas.clear();
 //                index=0;
 =======
@@ -123,6 +139,8 @@ public class PainView extends CardiographView {
 
 
 =======
+=======
+>>>>>>> parent of 427465b... 更改数据传输格式
                 MainActivity.datas.clear();
                 index=0;
             }
@@ -141,7 +159,11 @@ public class PainView extends CardiographView {
 
 
 <<<<<<< HEAD
+<<<<<<< HEAD
         for(int j = 0;j<i;j+=10) {
+=======
+//                WriteFile.initData(MainActivity.datas);
+>>>>>>> parent of 427465b... 更改数据传输格式
 =======
 //                WriteFile.initData(MainActivity.datas);
 >>>>>>> parent of 427465b... 更改数据传输格式

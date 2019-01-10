@@ -16,8 +16,11 @@ import android.widget.Toast;
 import com.drawheart.CardiographView;
 import com.drawheart.PainView;
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 import java.io.BufferedReader;
+=======
+>>>>>>> parent of 427465b... 更改数据传输格式
 =======
 >>>>>>> parent of 427465b... 更改数据传输格式
 import java.io.File;
@@ -29,8 +32,11 @@ import java.io.InputStream;
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
+=======
+>>>>>>> parent of 427465b... 更改数据传输格式
 =======
 >>>>>>> parent of 427465b... 更改数据传输格式
 import java.util.ArrayList;
@@ -79,7 +85,11 @@ public class MainActivity extends AppCompatActivity {
     public static float arraydoubleqian[] = new float[1024];
 
 <<<<<<< HEAD
+<<<<<<< HEAD
     public static float arraydoublehou  [] = new float[1024];
+=======
+    public static float arraydoublehou  [] = new float[112];
+>>>>>>> parent of 427465b... 更改数据传输格式
 =======
     public static float arraydoublehou  [] = new float[112];
 >>>>>>> parent of 427465b... 更改数据传输格式
@@ -210,12 +220,16 @@ public class MainActivity extends AppCompatActivity {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
                 final byte[] buffer = new byte[112];
 =======
 >>>>>>> parent of c93d6c9... 实现绘制
 =======
 >>>>>>> parent of c93d6c9... 实现绘制
                 final  byte[] buffer = new byte[1024];
+=======
+                final  byte[] buffer = new byte[112];
+>>>>>>> parent of 427465b... 更改数据传输格式
 =======
                 final  byte[] buffer = new byte[112];
 >>>>>>> parent of 427465b... 更改数据传输格式
@@ -227,7 +241,11 @@ public class MainActivity extends AppCompatActivity {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
                     if (bytes > -1) {
+=======
+                    if(bytes > -1) {
+>>>>>>> parent of 427465b... 更改数据传输格式
 =======
                     if(bytes > -1) {
 >>>>>>> parent of 427465b... 更改数据传输格式
@@ -240,6 +258,7 @@ public class MainActivity extends AppCompatActivity {
                         final byte[] data = new byte[1024];
 
 //                        复制到data数组
+<<<<<<< HEAD
 <<<<<<< HEAD
                         System.arraycopy(buffer, 0, data, 0, bytes);
 
@@ -307,6 +326,8 @@ public class MainActivity extends AppCompatActivity {
 //                        }
 =======
 >>>>>>> parent of 427465b... 更改数据传输格式
+=======
+>>>>>>> parent of 427465b... 更改数据传输格式
                             System.arraycopy(buffer, 0, data, 0, bytes);
 
                             int c = data.length;
@@ -341,15 +362,21 @@ public class MainActivity extends AppCompatActivity {
 //                                        }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 //                                        Log.d(TAG, "单前: " + arraydanqian[2]);
 
 
 =======
+=======
+>>>>>>> parent of 427465b... 更改数据传输格式
                                         datas.add(arraydanqian[2]);
                                         flag = true;
 //                                        WriteFile2.initData(array2);
 
 //                                        WriteFileArray.initData(arraydanqian);
+<<<<<<< HEAD
+>>>>>>> parent of 427465b... 更改数据传输格式
+=======
 >>>>>>> parent of 427465b... 更改数据传输格式
 
                                     } else if (backage_flag % 2 == 0) {
@@ -364,14 +391,20 @@ public class MainActivity extends AppCompatActivity {
 //                                         }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 //                                            Log.e(TAG, "双后: " + arraydoubleqian[2]);
 =======
+=======
+>>>>>>> parent of 427465b... 更改数据传输格式
                                         datas.add(arraydoubleqian[2]);
                                         flag = true;
 //                                        WriteFile2.initData(array2);
 
 //                                        WriteFile2.initData(arraydanqian[2]);
 //                                        WriteFileArray.initData(arraydoubleqian);
+<<<<<<< HEAD
+>>>>>>> parent of 427465b... 更改数据传输格式
+=======
 >>>>>>> parent of 427465b... 更改数据传输格式
 
                                     }
@@ -410,6 +443,7 @@ public class MainActivity extends AppCompatActivity {
         return str;
     }
 
+<<<<<<< HEAD
 <<<<<<< HEAD
     private int bytestoint(byte[] datam) {
 
@@ -472,6 +506,8 @@ public class MainActivity extends AppCompatActivity {
         }
 
     }
+=======
+>>>>>>> parent of 427465b... 更改数据传输格式
 =======
 >>>>>>> parent of 427465b... 更改数据传输格式
 }
