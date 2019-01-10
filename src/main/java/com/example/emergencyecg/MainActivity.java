@@ -15,8 +15,11 @@ import android.widget.LinearLayout;
 import android.widget.Toast;
 import com.drawheart.CardiographView;
 import com.drawheart.PainView;
+<<<<<<< HEAD
 
 import java.io.BufferedReader;
+=======
+>>>>>>> parent of 427465b... 更改数据传输格式
 import java.io.File;
 import java.io.FileOutputStream;
 
@@ -25,8 +28,11 @@ import java.io.InputStream;
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
+=======
+>>>>>>> parent of 427465b... 更改数据传输格式
 import java.util.ArrayList;
 import java.util.List;
 =======
@@ -54,8 +60,6 @@ public class MainActivity extends AppCompatActivity {
 <<<<<<< HEAD
     public static List<Float> datas = new ArrayList();
 
-    public static List<Integer> datats = new ArrayList();
-
     public static boolean flag = true;
 
     public static boolean size_change = true;
@@ -74,27 +78,20 @@ public class MainActivity extends AppCompatActivity {
 
     public static float arraydoubleqian[] = new float[1024];
 
+<<<<<<< HEAD
     public static float arraydoublehou  [] = new float[1024];
+=======
+    public static float arraydoublehou  [] = new float[112];
+>>>>>>> parent of 427465b... 更改数据传输格式
 
     private int REQUEST_ENABLE = 1;
 
     private int backage_flag = 1;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-
-        try {
-            InputStream inputStream = getResources().openRawResource(R.raw.uartdata);
-            readInternal(inputStream);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-
 //      获取蓝牙适配器
         bTAdatper = BluetoothAdapter.getDefaultAdapter();
 
@@ -110,6 +107,7 @@ public class MainActivity extends AppCompatActivity {
 //      不做提示，直接打开蓝牙
 //            bTAdatper.enable();
         }
+
 
 
         Button batten = findViewById(R.id.scanButton);
@@ -128,7 +126,7 @@ public class MainActivity extends AppCompatActivity {
 //      获取已配对蓝牙
                 Set<BluetoothDevice> Bondedlist = bTAdatper.getBondedDevices();
                 for (BluetoothDevice mdevice : Bondedlist) {
-                    Log.e("TAG", "onClick: " + mdevice.getName() + mdevice.getUuids() + mdevice.getAddress());
+                    Log.e("TAG", "onClick: " + mdevice.getName()+mdevice.getUuids()+mdevice.getAddress());
                     try {
                         connect(mdevice);
                     } catch (IOException e) {
@@ -150,7 +148,7 @@ public class MainActivity extends AppCompatActivity {
             @SuppressLint("ResourceAsColor")
             @Override
 //            回调方法
-            public void onClick(View view) {
+             public void onClick(View view) {
 
                 LinearLayout bigLinearLayout = findViewById(R.id.bigPanel);
                 final PainView painView = new PainView(MainActivity.this);
@@ -171,45 +169,45 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    public void onDestroy() {
+     public void onDestroy() {
         super.onDestroy();
 //        unregisterReceiver(receiver);
     }
 
 
-    //    连接已配对设备
+//    连接已配对设备
     public void connect(BluetoothDevice device) throws IOException {
 
 //      获取socket
         socket = device.createInsecureRfcommSocketToServiceRecord(MY_UUID);
 
-        if (socket.isConnected()) {
+        if(socket.isConnected()) {
             return;
-        } else {
+        }else{
             socket.connect();
         }
-        if (socket.isConnected()) {
-            Log.e(TAG, "connect: " + "连接成功");
+        if(socket.isConnected()){
+            Log.e(TAG, "connect: "+"连接成功" );
 
 //            Toast.makeText(MainActivity.this,"连接成功",Toast.LENGTH_LONG);
         }
 
     }
 
-    //      接收信息线程
+//      接收信息线程
     class getDataThread extends Thread {
 
         private BluetoothServerSocket bluetoothServerSocket;
         private PainView painView = new PainView(MainActivity.this);
 
 
-        @Override
+    @Override
         public void run() {
-
 
             try {
                 InputStream inputStream = socket.getInputStream();
 //                OutputStream outputStream = socket.getOutputStream();
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
                 final byte[] buffer = new byte[112];
@@ -218,14 +216,21 @@ public class MainActivity extends AppCompatActivity {
 =======
 >>>>>>> parent of c93d6c9... 实现绘制
                 final  byte[] buffer = new byte[1024];
+=======
+                final  byte[] buffer = new byte[112];
+>>>>>>> parent of 427465b... 更改数据传输格式
                 int bytes;
 
-                while (true) {
+                while(true){
 //      读取数据
                     bytes = inputStream.read(buffer);
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
                     if (bytes > -1) {
+=======
+                    if(bytes > -1) {
+>>>>>>> parent of 427465b... 更改数据传输格式
                         final byte[] data = new byte[112];
 =======
 >>>>>>> parent of c93d6c9... 实现绘制
@@ -234,8 +239,8 @@ public class MainActivity extends AppCompatActivity {
                     if(bytes > -1) {
                         final byte[] data = new byte[1024];
 
-//                        打印数据确定是否为byte
 //                        复制到data数组
+<<<<<<< HEAD
                         System.arraycopy(buffer, 0, data, 0, bytes);
 
 ////                      将字节数组转换为字符串数字并判断正负
@@ -300,6 +305,8 @@ public class MainActivity extends AppCompatActivity {
 //                                }
 //                            }
 //                        }
+=======
+>>>>>>> parent of 427465b... 更改数据传输格式
                             System.arraycopy(buffer, 0, data, 0, bytes);
 
                             int c = data.length;
@@ -333,9 +340,17 @@ public class MainActivity extends AppCompatActivity {
 //                                            Log.e(TAG, "单前: " + arraydanqian[i]);
 //                                        }
 
+<<<<<<< HEAD
 //                                        Log.d(TAG, "单前: " + arraydanqian[2]);
 
 
+=======
+                                        datas.add(arraydanqian[2]);
+                                        flag = true;
+//                                        WriteFile2.initData(array2);
+
+//                                        WriteFileArray.initData(arraydanqian);
+>>>>>>> parent of 427465b... 更改数据传输格式
 
                                     } else if (backage_flag % 2 == 0) {
 //                              保存双数包标志前后数据
@@ -348,7 +363,16 @@ public class MainActivity extends AppCompatActivity {
 //                                            Log.e(TAG, "双后: " + arraydoubleqian[i]);
 //                                         }
 
+<<<<<<< HEAD
 //                                            Log.e(TAG, "双后: " + arraydoubleqian[2]);
+=======
+                                        datas.add(arraydoubleqian[2]);
+                                        flag = true;
+//                                        WriteFile2.initData(array2);
+
+//                                        WriteFile2.initData(arraydanqian[2]);
+//                                        WriteFileArray.initData(arraydoubleqian);
+>>>>>>> parent of 427465b... 更改数据传输格式
 
                                     }
                                 } else {
@@ -363,30 +387,30 @@ public class MainActivity extends AppCompatActivity {
 
 //                            Log.e(TAG, "run: " + "数组打印完毕，下一组为：");
 
-//                    }
+                    }
                         backage_flag++;
 
-                    }
-                }
-                }  catch(IOException e){
-                    e.printStackTrace();
-                }
+                   }
+            } catch (IOException e) {
+                e.printStackTrace();
             }
         }
+    }
 
     private String bytesToHex(final byte[] dataBytes) {
         char temp;
         String str = "";
-        for (int n = 0; n < dataBytes.length; n++) {
+        for (int n=0; n<dataBytes.length; n++) {
             temp = (char) ((dataBytes[n] & 0xf0) >> 4);
-            str += (char) (temp >= 10 ? 'A' + (temp - 10) : '0' + temp);
+            str += (char)(  temp >= 10? 'A'+(temp-10):'0'+temp);
             temp = (char) ((dataBytes[n] & 0x0f) >> 0);
-            str += (char) (temp >= 10 ? 'A' + (temp - 10) : '0' + temp);
-            str += ' ';
+            str += (char)( temp >= 10? 'A'+(temp-10):'0'+temp);
+            str +=  ' ';
         }
         return str;
     }
 
+<<<<<<< HEAD
     private int bytestoint(byte[] datam) {
 
         int result = 0;
@@ -448,4 +472,6 @@ public class MainActivity extends AppCompatActivity {
         }
 
     }
+=======
+>>>>>>> parent of 427465b... 更改数据传输格式
 }
