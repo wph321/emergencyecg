@@ -1,11 +1,8 @@
 <resources>
 
     <!-- Base application theme. -->
-<<<<<<< HEAD
-    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
-=======
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
->>>>>>> parent of d9f62c6... 写文件绘制波形
+
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
