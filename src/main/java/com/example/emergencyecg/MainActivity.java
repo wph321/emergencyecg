@@ -102,8 +102,6 @@ public class MainActivity extends AppCompatActivity {
 //            bTAdatper.enable();
         }
 
-
-
         Button batten = findViewById(R.id.scanButton);
         batten.setOnClickListener(new View.OnClickListener() {
             @Override
