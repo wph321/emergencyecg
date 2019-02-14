@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">emergencyecg</string>
     <string name="ok">OK</string>
-    <string name="niu_conference">牛会议</string>
+    <string name="niu_conference">蓬阳医疗</string>
     <string name="channel_error_title">连接错误</string>
     <string name="connecting_to">正在连接: %1$s</string>
     <string name="connected_to_room">连接成功</string>
